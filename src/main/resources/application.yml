@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    #指定缓存类型
+    include: common
+
+dingtalk:
+  base-url: ${DINGTALK_BASE_URL:https://oapi.dingtalk.com}
+  access-token: ${DINGTALK_ACCESS_TOKEN:}
