@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example.dingding.feign;
+package com.example.dingding.config;
 
 import feign.Logger;
 import feign.Request;

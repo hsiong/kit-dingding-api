@@ -2,7 +2,7 @@ package com.example.dingding.service.impl;
 
 import com.example.dingding.dto.GetUserByMobileRequest;
 import com.example.dingding.dto.GetUserByMobileResult;
-import com.example.dingding.service.RestDingClient;
+import com.example.dingding.feign.RestDingClient;
 import com.example.dingding.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;

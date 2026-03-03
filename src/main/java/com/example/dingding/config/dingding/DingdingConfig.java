@@ -1,4 +1,4 @@
-package com.example.dingding.config;
+package com.example.dingding.config.dingding;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,6 +16,13 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class DingdingConfig {
 	
+	/**
+	 * 获取 token Host
+	 */
+	private String tokenUrl;
+	/**
+	 * 接口调用 Host
+	 */
 	private String baseUrl;
 	
 	private String appKey;

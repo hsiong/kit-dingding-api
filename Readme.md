@@ -44,6 +44,10 @@ https://open-dev.dingtalk.com/fe/im?spm=ding_open_doc.document.0.0.432827e2jKgyS
 
 https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-internal-app?spm=ding_open_doc.document.0.0.15d327e2IajId6
 
+> 注意： 本项目仅作为测试， AccessToken 有效期为 2h，不能频繁调用获取
+>
+> 生产环境获取 AccessToken 后，应存入缓存或缓存队列
+
 ## 创建群
 
 https://open.dingtalk.com/document/development/create-a-scene-group-v2

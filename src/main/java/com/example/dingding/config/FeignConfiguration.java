@@ -1,5 +1,5 @@
 
-package com.example.dingding.feign;
+package com.example.dingding.config;
 
 import feign.Logger.Level;
 import feign.Request;

@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example.dingding.feign;
+package com.example.dingding.config;
 
 import com.example.dingding.dto.DingResult;
 import feign.codec.Decoder;

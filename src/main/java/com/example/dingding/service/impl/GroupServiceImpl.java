@@ -1,10 +1,10 @@
 package com.example.dingding.service.impl;
 
-import com.example.dingding.config.DingdingConfig;
+import com.example.dingding.config.dingding.DingdingConfig;
 import com.example.dingding.dto.CreateSceneGroupRequest;
 import com.example.dingding.dto.CreateSceneGroupResult;
 import com.example.dingding.service.GroupService;
-import com.example.dingding.service.RestDingClient;
+import com.example.dingding.feign.RestDingClient;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
