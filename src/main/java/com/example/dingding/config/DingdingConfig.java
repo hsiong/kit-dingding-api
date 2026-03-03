@@ -18,4 +18,7 @@ public class DingdingConfig {
 	
 	private String baseUrl = "https://oapi.dingtalk.com";
 	private String accessToken;
+	
+	private String templateId;
+	
 }
