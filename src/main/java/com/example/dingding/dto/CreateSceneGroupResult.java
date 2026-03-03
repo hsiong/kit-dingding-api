@@ -11,10 +11,6 @@ public class CreateSceneGroupResult {
     @JsonProperty("chat_id")
     private String chatId;
 
-    @Schema(description = "会话ID")
-    @JsonProperty("conversation_id")
-    private String conversationId;
-
     @Schema(description = "开放会话ID")
     @JsonProperty("open_conversation_id")
     private String openConversationId;
