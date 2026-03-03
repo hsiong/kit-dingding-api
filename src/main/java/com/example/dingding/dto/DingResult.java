@@ -14,12 +14,12 @@ public class DingResult<T> {
 	
 	private T result;
 	
-	private Boolean success;
-	
-	private String errcode;
+	private Integer errcode;
 	
 	private String errmsg;
 	
 	private String requestId; 
+	
+	// 	private Boolean success;
 	
 }

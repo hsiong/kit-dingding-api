@@ -3,7 +3,9 @@ spring:
     #指定缓存类型
     include: common
 
-dingtalk:
+dingding:
   base-url: ${DINGTALK_BASE_URL:https://oapi.dingtalk.com}
-  access-token: ${DINGTALK_ACCESS_TOKEN:} # https://open-dev.dingtalk.com/?spm=ding_open_doc.document.0.0.377276e0bLlGb9&hash=%23%2F#/
-  templateId: 2ce1482d-2b4c-4c85-9b81-b80a59584302 # https://open-dev.dingtalk.com/fe/im?spm=ding_open_doc.document.0.0.761634e6WdyAuo&hash=%23%2Fgroup%2Flist#/group/list
+  app-key: ${DINGTALK_ACCESS_TOKEN:} # https://open.dingtalk.com/document/development/how-to-call-apis?spm=ding_open_doc.document.0.0.15d327e2IajId6
+  app-sercret: ${DINGTALK_ACCESS_TOKEN:} 
+  templateId: 0fd78661-b1b0-4904-9426-ffcaa4754496 # https://open-dev.dingtalk.com/fe/im?spm=ding_open_doc.document.0.0.761634e6WdyAuo&hash=%23%2Fgroup%2Flist#/group/list
+  robotCode: dingmwjw3fkvapwczxnz

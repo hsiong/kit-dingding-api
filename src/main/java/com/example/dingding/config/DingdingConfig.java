@@ -16,9 +16,12 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class DingdingConfig {
 	
-	private String baseUrl = "https://oapi.dingtalk.com";
-	private String accessToken;
+	private String baseUrl;
+	
+	private String appKey;
+	private String appSecret;
 	
 	private String templateId;
+	private String robotCode;
 	
 }

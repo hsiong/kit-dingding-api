@@ -43,7 +43,7 @@ public class FeignResponseDecoder {
 					}
 				};
 				DingResult<?> result = (DingResult) decoder.decode(response, newType);
-				if (!result.getSuccess()) {
+				if (result.getErrcode() != 0) {
 					throw new RuntimeException(String.format("errcode:%s, errmsg:%s", result.getErrcode(), result.getErrmsg()));
 				}
 				return result.getResult();

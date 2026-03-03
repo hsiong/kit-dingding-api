@@ -2,7 +2,6 @@ package com.example.dingding.controller;
 
 import com.example.dingding.dto.CreateSceneGroupRequest;
 import com.example.dingding.dto.CreateSceneGroupResult;
-import com.example.dingding.dto.ApiResponse;
 import com.example.dingding.service.GroupService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -15,12 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/dingtalk/group")
 public class GroupController {
 
-    
     @Resource
     private GroupService groupService;
 
     @PostMapping("/scene/create")
-    public ApiResponse<CreateSceneGroupResult> createSceneGroup(@Valid @RequestBody CreateSceneGroupRequest request) {
+    public CreateSceneGroupResult createSceneGroup(@Valid @RequestBody CreateSceneGroupRequest request) {
         return groupService.createSceneGroup(request);
     }
 }
