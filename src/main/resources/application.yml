@@ -4,9 +4,9 @@ spring:
     include: common
 
 dingding:
-  token-url: ${DINGTALK_BASE_URL:https://api.dingtalk.com}
+  token-url: ${DINGTALK_TOKEN_URL:https://api.dingtalk.com}
   base-url: ${DINGTALK_BASE_URL:https://oapi.dingtalk.com}
-  app-key: ${DINGTALK_ACCESS_TOKEN:} # https://open.dingtalk.com/document/development/how-to-call-apis?spm=ding_open_doc.document.0.0.15d327e2IajId6
-  app-sercret: ${DINGTALK_ACCESS_TOKEN:} 
+  app-key: ${DINGTALK_ACCESS_KEY:} # https://open.dingtalk.com/document/development/how-to-call-apis?spm=ding_open_doc.document.0.0.15d327e2IajId6
+  app-secret: ${DINGTALK_ACCESS_SECRET:} 
   templateId: 0fd78661-b1b0-4904-9426-ffcaa4754496 # https://open-dev.dingtalk.com/fe/im?spm=ding_open_doc.document.0.0.761634e6WdyAuo&hash=%23%2Fgroup%2Flist#/group/list
   robotCode: dingmwjw3fkvapwczxnz

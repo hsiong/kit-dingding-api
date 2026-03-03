@@ -32,7 +32,13 @@ https://open.dingtalk.com/document/development/development-robot-overview?spm=a2
 
 https://open-dev.dingtalk.com/fe/im?spm=ding_open_doc.document.0.0.432827e2jKgyS3#/group/list
 
-## 开通相关接口权限
+## 开通权限
+
+### 获取应用凭证
+
+https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-internal-app?spm=ding_open_doc.document.0.0.15d327e2IajId6
+
+> 注意：新版本， 要使用 Client ID 和 Client Secret
 
 ### 根据手机号获取成员基本信息权限
 
