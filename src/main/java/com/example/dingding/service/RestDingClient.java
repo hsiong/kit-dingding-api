@@ -17,7 +17,13 @@ import org.springframework.cloud.openfeign.FeignClient;
     }
 )
 public interface RestDingClient {
-
+    
+    /**
+     * 创建群聊
+     * https://open.dingtalk.com/document/development/create-a-scene-group-v2
+     * @param request
+     * @return
+     */
     @RequestLine("POST /topapi/im/chat/scenegroup/create?access_token={accessToken}")
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     CreateSceneGroupResult createSceneGroup(CreateSceneGroupRequest request);
