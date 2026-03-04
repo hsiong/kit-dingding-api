@@ -1,7 +1,6 @@
 package com.example.dingding.controller;
 
 import com.example.dingding.dto.GetUserByMobileRequest;
-import com.example.dingding.dto.GetUserByMobileResult;
 import com.example.dingding.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -18,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/get-by-mobile")
-    public GetUserByMobileResult getByMobile(@Valid @RequestBody GetUserByMobileRequest request) {
+    public String getByMobile(@Valid @RequestBody GetUserByMobileRequest request) {
         return userService.getUserByMobile(request.getMobile());
     }
 }

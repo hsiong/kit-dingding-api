@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
     private RestDingClient restDingClient;
 
     @Override
-    public GetUserByMobileResult getUserByMobile(String mobile) {
+    public String getUserByMobile(String mobile) {
         GetUserByMobileRequest request = new GetUserByMobileRequest();
         request.setMobile(mobile);
-        return restDingClient.getUserByMobile(request);
+        return restDingClient.getUserByMobile(request).getUserId();
     }
 }
