@@ -1,0 +1,75 @@
+package com.example.dingding.controller;
+
+import com.example.dingding.dto.*;
+import com.example.dingding.service.AccessTokenService;
+import com.example.dingding.service.GroupService;
+import com.example.dingding.service.MessageService;
+import com.example.dingding.service.UserService;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 钉钉用户相关接口。
+ */
+@RestController
+@RequestMapping("/api/dingtalk/user")
+public class ApiTestController {
+
+    @Resource
+    private UserService userService;
+    
+    @Resource
+    private GroupService groupService;
+    
+    @Resource
+    private MessageService messageService;
+    
+    @Resource
+    private AccessTokenService accessTokenService;
+    
+    /**
+     * 获取应用访问令牌。
+     *
+     * @return 钉钉 access token 结果
+     */
+    @GetMapping("/access-token")
+    public GetAccessTokenResult getAccessToken() {
+        return accessTokenService.getAccessToken();
+    }
+
+    /**
+     * 通过手机号查询钉钉用户ID。
+     *
+     * @param request 查询参数
+     * @return 用户ID
+     */
+    @PostMapping("/get-by-mobile")
+    public String getByMobile(@Valid @RequestBody GetUserByMobileRequest request) {
+        return userService.getUserByMobile(request.getMobile());
+    }
+    
+    /**
+     * 直接使用群参数创建场景群。
+     *
+     * @param request 建群请求
+     * @return 建群结果
+     */
+    @PostMapping("/scene/create")
+    public CreateSceneGroupResult createSceneGroup(@Valid @RequestBody CreateSceneGroupRequest request) {
+        return groupService.createSceneGroup(request);
+    }
+    
+    /**
+     * 发送群助手消息（旧版 SDK 对应接口）。
+     *
+     * @param request 发送请求
+     * @return 发送结果
+     */
+    @PostMapping("/scene/message/send")
+    public SendSceneGroupAssistantMessageResult sendSceneGroupAssistantMessage(
+        @Valid @RequestBody SendSceneGroupAssistantMessageDTO request
+    ) {
+        return messageService.sendSceneGroupAssistantMessage(request);
+    }
+}

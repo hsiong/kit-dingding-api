@@ -24,4 +24,5 @@ public interface GroupService {
      * @return 建群结果
      */
     CreateSceneGroupResult createSceneGroupByPhone(CreateSceneGroupReqDTO dto);
+
 }

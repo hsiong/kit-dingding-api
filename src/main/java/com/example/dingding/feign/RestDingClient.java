@@ -4,6 +4,8 @@ import com.example.dingding.dto.CreateSceneGroupRequest;
 import com.example.dingding.dto.CreateSceneGroupResult;
 import com.example.dingding.dto.GetUserByMobileRequest;
 import com.example.dingding.dto.GetUserByMobileResult;
+import com.example.dingding.dto.SendSceneGroupAssistantMessageRequest;
+import com.example.dingding.dto.SendSceneGroupAssistantMessageResult;
 import com.example.dingding.config.dingding.DingdingRequestInterceptor;
 import com.example.dingding.config.FeignConfiguration;
 import com.example.dingding.config.FeignResponseDecoder;
@@ -38,4 +40,13 @@ public interface RestDingClient {
      */
     @PostMapping("/topapi/v2/user/getbymobile")
     GetUserByMobileResult getUserByMobile(@RequestBody GetUserByMobileRequest request);
+
+    /**
+     * 发送群助手消息（群机器人）。
+     * https://open.dingtalk.com/document/development/chatbot-messages-sent-to-the-group-assistant
+     */
+    @PostMapping("/topapi/im/chat/scencegroup/message/send_v2")
+    SendSceneGroupAssistantMessageResult sendSceneGroupAssistantMessage(
+            @RequestBody SendSceneGroupAssistantMessageRequest request
+    );
 }

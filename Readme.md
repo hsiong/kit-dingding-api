@@ -36,7 +36,7 @@ https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-int
 
 > 注意：新版本， 要使用 Client ID 和 Client Secret
 
-### 创建群模板机器人
+### 创建群机器人
 
 https://open.dingtalk.com/document/development/development-robot-overview?spm=a2q3p.21071111.0.0.34a1IlBcIlBcwn
 
@@ -71,4 +71,10 @@ https://open.dingtalk.com/document/development/query-users-by-phone-number
 
 ### 根据 userId 创建群聊，并关联机器人
 
+> 需要业务入库，让同一客户在同一个群里，不用每次都建新群
+
 https://open.dingtalk.com/document/development/create-a-scene-group-v2
+
+### 发送群助手消息，并@所有人
+
+https://open.dingtalk.com/document/development/group-template-robot-message
