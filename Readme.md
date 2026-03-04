@@ -36,6 +36,12 @@ https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-int
 
 > 注意：新版本， 要使用 Client ID 和 Client Secret
 
+### 创建群模板机器人
+
+https://open.dingtalk.com/document/development/development-robot-overview?spm=a2q3p.21071111.0.0.34a1IlBcIlBcwn
+
+> 用于发送群助手消息：提醒xxx客户到院，并@所有人
+
 ### 根据手机号获取成员基本信息权限
 
 [qyapi_get_member_by_mobile]，点击链接申请并开通即可：https://open-dev.dingtalk.com/appscope/apply?content=cliowdul0snq9dnukx6%23qyapi_get_member_by_mobile,
