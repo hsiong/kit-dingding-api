@@ -11,6 +11,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * 钉钉业务接口客户端（自动注入 access_token 并统一解包响应）。
+ */
 @FeignClient(
     name = "RestDingClient",
     url = "${dingding.base-url}",
