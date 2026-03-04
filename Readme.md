@@ -1,9 +1,5 @@
 
 
-
-
-
-
 # 自动建群流程
 
 ## 成为开发者
@@ -44,6 +40,10 @@ https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-int
 
 [qyapi_get_member_by_mobile]，点击链接申请并开通即可：https://open-dev.dingtalk.com/appscope/apply?content=cliowdul0snq9dnukx6%23qyapi_get_member_by_mobile,
 
+### 钉钉群基础信息管理权限
+
+[qyapi_chat_manage]，点击链接申请并开通即可：https://open-dev.dingtalk.com/appscope/apply?content=dingzmdx4lslyfmm3olj%23qyapi_chat_manage
+
 ## 相关接口
 
 ### 获取 AccessToken
@@ -54,6 +54,15 @@ https://open.dingtalk.com/document/development/obtain-the-access-token-of-an-int
 >
 > 生产环境获取 AccessToken 后，应存入缓存或缓存队列
 
-## 创建群
+### 根据用户手机号查询 userId
+
+https://open.dingtalk.com/document/development/query-users-by-phone-number
+
+> 注意：
+>
+> 1. CRM 员工手机号应与钉钉保持一致
+> 2. 要处理接口调用失败/用户未找到等相关异常
+
+### 根据 userId 创建群聊，并关联机器人
 
 https://open.dingtalk.com/document/development/create-a-scene-group-v2

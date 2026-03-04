@@ -25,6 +25,12 @@ public class UserServiceImpl implements UserService {
         request.setMobile(mobile);
 
         // 统一解码器会先校验 errcode，再返回 result。
-        return restDingClient.getUserByMobile(request).getUserId();
+        GetUserByMobileResult userByMobile = null;
+        try {
+            userByMobile = restDingClient.getUserByMobile(request);
+        } catch (Exception e) { // 找不到用户，在这里处理
+            throw new RuntimeException(e);
+        }
+        return userByMobile.getUserId();
     }
 }

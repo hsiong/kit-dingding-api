@@ -29,4 +29,5 @@ public class UserController {
     public String getByMobile(@Valid @RequestBody GetUserByMobileRequest request) {
         return userService.getUserByMobile(request.getMobile());
     }
+    
 }
