@@ -1,5 +1,38 @@
 
 
+# 项目功能说明
+
+本项目是一个基于 Spring Boot 3 + OpenFeign 的钉钉开放平台对接服务，面向“自动建群+群消息触达”场景，提供以下能力：
+
+## 核心能力
+
+1. 获取企业内部应用 AccessToken（应用身份鉴权）。
+2. 根据手机号查询钉钉用户 `userId`。
+3. 创建场景群（支持直接传 `userId`，或传手机号后自动转换）。
+4. 发送群助手消息（文本模板），支持 `@指定成员` 和 `@所有人`。
+
+## 已实现接口
+
+### 业务接口
+
+- `POST /api/dingtalk/group/scene/createByPhone`
+  - 入参：群主手机号、成员手机号列表、群标题。
+  - 逻辑：自动将手机号转换为 `userId` 后创建场景群。
+
+### 调试/测试接口
+
+- `GET /api/dingtalk/user/access-token`：获取 AccessToken。
+- `POST /api/dingtalk/user/get-by-mobile`：手机号换取 `userId`。
+- `POST /api/dingtalk/user/scene/create`：按 `userId` 参数直接创建场景群。
+- `POST /api/dingtalk/user/scene/message/send`：发送群助手文本消息。
+
+## 典型业务流程（自动建群）
+
+1. 通过应用凭证获取 AccessToken（由拦截器统一透传到钉钉接口）。
+2. 根据群主手机号和成员手机号查询对应 `userId`。
+3. 组装建群请求（自动补充 `uuid`、`templateId`）并调用钉钉建群接口。
+4. 发送群助手消息通知群成员（支持 `@all`）。
+
 # 自动建群流程
 
 ## 成为开发者
