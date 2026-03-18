@@ -1,0 +1,32 @@
+server:
+  #tomcat最大线程数，默认为200
+  max-threads: 800
+  # Tomcat启动初始化的线程数，默认值25
+  min-spare-threads: 30
+  #服务器的HTTP端口，默认为8080
+  port: ${config.port:8000}
+  servlet:
+    #应用的访问路径
+    context-path: /dingding-bot
+  tomcat:
+    #tomcat的URI编码
+    uri-encoding: UTF-8
+  # 🔥🔥🔥 添加以下配置来解决响应乱码问题 🔥🔥🔥
+  encoding:
+    # 强制请求和响应使用 UTF-8
+    charset: UTF-8
+    force: true
+    enabled: true
+
+# Spring配置 
+spring:
+  messages:
+    # 资源信息 国际化资源文件路径
+    basename: i18n/messages
+  servlet:
+    multipart:
+      # 文件上传单个文件大小
+      max-file-size: 10MB
+      # 文件上传设置总上传的文件大小
+      max-request-size: 20MB
+
