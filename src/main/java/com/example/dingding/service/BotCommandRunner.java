@@ -33,11 +33,10 @@ public class BotCommandRunner implements CommandLineRunner {
 				.custom()
 				.credential(new AuthClientCredential(dingdingConfig.getAppKey(), dingdingConfig.getAppSecret()))
 				//注册机器人监听器
-				.registerCallbackListener("${topic}", robotMessage -> {
+				.registerCallbackListener("/v1.0/im/bot/messages/get", robotMessage -> {
 					log.info("receive robotMessage, {}", robotMessage);
 					//开发者根据自身业务需求，处理机器人回调
 					return new JSONObject();
-					
 				})
 				.build().start();
 		} catch (Exception e) {
