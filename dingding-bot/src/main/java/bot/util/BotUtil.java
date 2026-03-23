@@ -20,22 +20,35 @@ public class BotUtil {
 	@Value("${dingding.bot-secret")
 	private String botSecret;
 	
+	/**
+	 * 钉钉要求：timestamp 与当前系统时间相差不能超过 1 小时
+	 */
+	private static final long MAX_DIFF_MILLIS = 60 * 60 * 1000L;
+	
 	
 	/**
 	 * 验证机器人身份，生成签名字符串。
 	 * 
 	 * @throws Exception
 	 */
-	public void authBot() {
+	public void authBot(String timestamp, String sign) {
+		
+		// 1. 校验时间戳
+		long now = System.currentTimeMillis();
+		if (Math.abs(now - Long.parseLong(timestamp)) > MAX_DIFF_MILLIS) {
+			throw new RuntimeException("timestamp error: " + timestamp);
+		}
+		
+		// 2. 校验签名
 		try {
-			Long timestamp = 1577262236757L;
-			String appSecret = "this is a secret";
-			String stringToSign = timestamp + "\n" + appSecret;
+			String stringToSign = timestamp + "\n" + botSecret;
 			Mac mac = Mac.getInstance("HmacSHA256");
-			mac.init(new SecretKeySpec(appSecret.getBytes("UTF-8"), "HmacSHA256"));
+			mac.init(new SecretKeySpec(botSecret.getBytes("UTF-8"), "HmacSHA256"));
 			byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
-			String sign = new String(Base64.encodeBase64(signData, false));
-			System.out.println(sign);
+			String localSign = new String(Base64.encodeBase64(signData, false));
+			if (!localSign.equals(sign)) {
+				throw new RuntimeException("sign error: " + sign);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
