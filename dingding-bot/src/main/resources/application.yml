@@ -29,4 +29,8 @@ spring:
       max-file-size: 10MB
       # 文件上传设置总上传的文件大小
       max-request-size: 20MB
+      
+dingding: 
+  # 应用内配置的机器人，用应用的appSecret来鉴权
+  bot-secret: ${dingding.bot-secret}
 
