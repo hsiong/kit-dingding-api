@@ -17,7 +17,7 @@ import javax.crypto.spec.SecretKeySpec;
 @Component
 public class BotUtil {
 	
-	@Value("${dingding.bot-secret")
+	@Value("${dingding.bot-secret}")
 	private String botSecret;
 	
 	/**
@@ -47,10 +47,11 @@ public class BotUtil {
 			byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
 			String localSign = new String(Base64.encodeBase64(signData, false));
 			if (!localSign.equals(sign)) {
-				throw new RuntimeException("sign error: " + sign);
+				System.out.println("localSign=" + localSign + ", sign=" + sign);
+				throw new RuntimeException(String.format("sign error: timestamp=%s, sign=%s", timestamp, sign));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
