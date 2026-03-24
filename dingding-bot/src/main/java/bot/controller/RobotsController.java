@@ -1,4 +1,4 @@
-package test;
+package bot.controller;
 
 import bot.dto.DingTalkMessageDTO;
 import bot.service.MessageService;
