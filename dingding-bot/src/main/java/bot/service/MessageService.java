@@ -35,9 +35,8 @@ public class MessageService {
 		DingTalkClient client = new DefaultDingTalkClient(webhook);
 		OapiRobotSendRequest request = new OapiRobotSendRequest();
 		request.setMsgtype(MessageTypeEnum.MARKDOWN.getCode());
-		OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
-		text.setContent(String.format("#内容 \n > %s", content));
-		request.setText(text);
+		request = MessageTypeEnum.getMarkdown(request, "机器人回复", content);
+		
 		OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
 		if (atUsers != null) {
 			at.setAtUserIds(atUsers);
@@ -48,7 +47,7 @@ public class MessageService {
 		try {
 			response = client.execute(request);
 		} catch (ApiException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("发送消息失败", e);
 		}
 		System.out.println(response.getBody());
 	}
