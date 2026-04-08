@@ -4,6 +4,7 @@ import com.example.dingding.dto.*;
 import com.example.dingding.service.AccessTokenService;
 import com.example.dingding.service.GroupService;
 import com.example.dingding.service.MessageService;
+import com.example.dingding.service.ServiceRecordService;
 import com.example.dingding.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class ApiTestController {
     
     @Resource
     private AccessTokenService accessTokenService;
+
+    @Resource
+    private ServiceRecordService serviceRecordService;
     
     /**
      * 获取应用访问令牌。
@@ -71,5 +75,16 @@ public class ApiTestController {
         @Valid @RequestBody SendSceneGroupAssistantMessageDTO request
     ) {
         return messageService.sendSceneGroupAssistantMessage(request);
+    }
+
+    /**
+     * 获取单条服务记录的完整转写文本。
+     *
+     * @param recordId 服务记录ID
+     * @return 完整转写文本
+     */
+    @GetMapping("/service-record/transcript-text")
+    public String getServiceRecordTranscriptText(@RequestParam String recordId) {
+        return serviceRecordService.getServiceRecordTranscriptText(recordId);
     }
 }
