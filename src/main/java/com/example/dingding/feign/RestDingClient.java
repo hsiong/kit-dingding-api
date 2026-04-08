@@ -2,6 +2,8 @@ package com.example.dingding.feign;
 
 import com.example.dingding.dto.CreateSceneGroupRequest;
 import com.example.dingding.dto.CreateSceneGroupResult;
+import com.example.dingding.dto.GetUserDetailRequest;
+import com.example.dingding.dto.GetUserDetailResult;
 import com.example.dingding.dto.GetUserByMobileRequest;
 import com.example.dingding.dto.GetUserByMobileResult;
 import com.example.dingding.dto.SendSceneGroupAssistantMessageRequest;
@@ -49,4 +51,11 @@ public interface RestDingClient {
     SendSceneGroupAssistantMessageResult sendSceneGroupAssistantMessage(
             @RequestBody SendSceneGroupAssistantMessageRequest request
     );
+
+    /**
+     * 查询用户详情。
+     * https://open.dingtalk.com/document/development/query-user-details
+     */
+    @PostMapping("/topapi/v2/user/get")
+    GetUserDetailResult getUserDetail(@RequestBody GetUserDetailRequest request);
 }

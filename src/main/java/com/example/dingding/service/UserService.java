@@ -1,5 +1,7 @@
 package com.example.dingding.service;
 
+import com.example.dingding.dto.GetUserDetailResult;
+
 /**
  * 用户信息服务。
  */
@@ -12,4 +14,12 @@ public interface UserService {
      * @return 用户ID
      */
     String getUserByMobile(String mobile);
+
+    /**
+     * 查询用户详情。
+     *
+     * @param userId 用户ID
+     * @return 用户详情
+     */
+    GetUserDetailResult getUserDetail(String userId);
 }

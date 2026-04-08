@@ -1,5 +1,7 @@
 package com.example.dingding.service.impl;
 
+import com.example.dingding.dto.GetUserDetailRequest;
+import com.example.dingding.dto.GetUserDetailResult;
 import com.example.dingding.dto.GetUserByMobileRequest;
 import com.example.dingding.dto.GetUserByMobileResult;
 import com.example.dingding.feign.RestDingClient;
@@ -32,5 +34,13 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
         return userByMobile.getUserId();
+    }
+
+    @Override
+    public GetUserDetailResult getUserDetail(String userId) {
+        GetUserDetailRequest request = new GetUserDetailRequest();
+        request.setUserid(userId);
+        request.setLanguage("zh_CN");
+        return restDingClient.getUserDetail(request);
     }
 }
