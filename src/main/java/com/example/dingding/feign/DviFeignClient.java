@@ -3,8 +3,10 @@ package com.example.dingding.feign;
 import com.example.dingding.config.FeignConfiguration;
 import com.example.dingding.config.dingding.DingdingOpenApiRequestInterceptor;
 import com.example.dingding.dto.GetServiceRecordTranscriptResponse;
+import com.example.dingding.dto.ListServiceRecordRequest;
 import com.example.dingding.dto.ListServiceRecordResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,14 +27,7 @@ public interface DviFeignClient {
      * 分页获取企业下的服务记录。
      */
     @GetMapping("/v1.0/dvi/service-records")
-    ListServiceRecordResponse listServiceRecords(
-            @RequestParam(value = "maxResults", required = false) Integer maxResults,
-            @RequestParam(value = "nextToken", required = false) String nextToken,
-            @RequestParam(value = "endTime", required = false) Long endTime,
-            @RequestParam(value = "startTime", required = false) Long startTime,
-            @RequestParam(value = "userId", required = false) String userId,
-            @RequestParam(value = "teamCode", required = false) String teamCode
-    );
+    ListServiceRecordResponse listServiceRecords(@SpringQueryMap ListServiceRecordRequest request);
 
     /**
      * 获取服务记录转写文本。

@@ -2,6 +2,7 @@ package com.example.dingding.service.impl;
 
 import com.example.dingding.dto.GetServiceRecordTranscriptResponse;
 import com.example.dingding.dto.GetUserDetailResult;
+import com.example.dingding.dto.ListServiceRecordRequest;
 import com.example.dingding.dto.ListServiceRecordResponse;
 import com.example.dingding.dto.ServiceRecordExportResult;
 import com.example.dingding.feign.DviFeignClient;
@@ -49,14 +50,13 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
         String nextToken = null;
 
         do {
-            ListServiceRecordResponse response = dviFeignClient.listServiceRecords(
-                    MAX_RESULTS,
-                    nextToken,
-                    endTime,
-                    startTime,
-                    null,
-                    null
-            );
+            ListServiceRecordRequest request = new ListServiceRecordRequest();
+            request.setMaxResults(MAX_RESULTS);
+            request.setNextToken(nextToken);
+            request.setEndTime(endTime);
+            request.setStartTime(startTime);
+
+            ListServiceRecordResponse response = dviFeignClient.listServiceRecords(request);
 
             if (response != null && response.getResult() != null) {
                 records.addAll(response.getResult());
