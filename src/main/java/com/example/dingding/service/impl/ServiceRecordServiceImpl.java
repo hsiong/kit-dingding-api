@@ -50,6 +50,7 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
         String nextToken = null;
 
         do {
+            // 钉钉接口单页最多返回 20 条，这里循环带上 nextToken 拉取全部分页数据。
             ListServiceRecordRequest request = new ListServiceRecordRequest();
             request.setMaxResults(MAX_RESULTS);
             request.setNextToken(nextToken);
@@ -89,10 +90,12 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
                 if (speakerRole == null || StringUtils.isBlank(speakerRole.getChannel())) {
                     continue;
                 }
+                // 将接口中的角色标识映射成更适合导出文本阅读的中文角色名。
                 roleByChannel.put(speakerRole.getChannel(), formatRoleName(speakerRole.getRole(), speakerRole.getChannel()));
             }
         }
 
+        // 按分段开始时间排序后拼接，避免返回顺序不稳定影响导出文本可读性。
         List<GetServiceRecordTranscriptResponse.TranscriptSegment> segments = dataList.stream()
                                                                                       .filter(Objects::nonNull)
                                                                                       .sorted(Comparator.comparingLong(segment -> parseLong(segment.getStartTime())))
