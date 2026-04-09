@@ -1,17 +1,44 @@
 package com.example.dingding.service;
 
-import com.example.dingding.dto.*;
+import com.example.dingding.config.dingding.DingdingConfig;
+import com.example.dingding.dto.SendSceneGroupAssistantMessageDTO;
+import com.example.dingding.dto.SendSceneGroupAssistantMessageRequest;
+import com.example.dingding.dto.SendSceneGroupAssistantMessageResult;
+import com.example.dingding.feign.RestDingClient;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 /**
  * 群聊服务。
  */
-public interface MessageService {
+@Service
+public class MessageService {
+
+    @Resource
+    private RestDingClient restDingClient;
     
+    @Resource
+    private DingdingConfig dingdingConfig; 
+
     /**
-     * 发送群助手消息（群模板机器人）。
-     *
-     * @param request 发送请求
-     * @return 发送结果
+     * 发送群助手消息。
      */
-    SendSceneGroupAssistantMessageResult sendSceneGroupAssistantMessage(SendSceneGroupAssistantMessageDTO request);
+    public SendSceneGroupAssistantMessageResult sendSceneGroupAssistantMessage(
+        SendSceneGroupAssistantMessageDTO dto
+    ) {
+        String msgParamMap = String.format("{\"content\":\"%s\"}", dto.getMessage());
+        
+        SendSceneGroupAssistantMessageRequest request = new SendSceneGroupAssistantMessageRequest();
+        request.setTargetOpenConversationId(dto.getTargetOpenConversationId());
+        request.setAtUsers(dto.getAtUsers() == null ? null : String.join(",", dto.getAtUsers()));
+        request.setMsgParamMap(msgParamMap);
+        request.setRobotCode(dingdingConfig.getRobotCode());
+        /**
+         * https://open.dingtalk.com/document/development/group-template-robot-message
+         * 文本消息模板：msg_template_id 取值为 inner_app_template_text。
+         */
+        request.setMsgTemplateId("inner_app_template_text");
+        request.setIsAtAll(true);
+        return restDingClient.sendSceneGroupAssistantMessage(request);
+    }
 }
