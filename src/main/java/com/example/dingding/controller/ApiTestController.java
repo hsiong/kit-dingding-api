@@ -47,10 +47,10 @@ public class ApiTestController {
     }
 
     /**
-     * 通过手机号查询钉钉用户ID。
+     * 通过手机号查询钉钉用户 ID。
      *
      * @param request 查询参数
-     * @return 用户ID
+     * @return 用户 ID
      */
     @PostMapping("/get-by-mobile")
     public String getByMobile(@Valid @RequestBody GetUserByMobileRequest request) {
@@ -82,7 +82,7 @@ public class ApiTestController {
     }
     
     /**
-     * 获取近 7 天服务记录转写文本并写入本地文件。
+     * 获取近 7 天服务记录。
      *
      * @return 导出结果
      */
@@ -96,7 +96,7 @@ public class ApiTestController {
     /**
      * 获取单条服务记录的完整转写文本。
      *
-     * @param recordId 服务记录ID
+     * @param recordId 服务记录 ID
      * @return 完整转写文本
      */
     @GetMapping("/service-record/transcript-text")

@@ -27,9 +27,3 @@ config:
       username: postgres
       password: difyai123456
       
-  
-user:
-  java:
-    custom-data: 127.0.0.1:7000/custom-data
-  ai: 
-    custom-pipeline: 127.0.0.1:7001

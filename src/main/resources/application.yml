@@ -1,7 +1,7 @@
 spring:
   profiles:
     #指定缓存类型
-    include: common
+    include: common, dev
 
 dingding:
   token-url: ${DINGTALK_TOKEN_URL:https://api.dingtalk.com}
