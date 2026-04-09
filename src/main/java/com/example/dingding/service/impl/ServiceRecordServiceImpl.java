@@ -71,17 +71,19 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
     @Override
     public String getServiceRecordTranscriptText(String recordId) {
         GetServiceRecordTranscriptResponse response = dviFeignClient.getServiceRecordTranscript(recordId);
-        if (response == null || response.getResult() == null) {
+        GetServiceRecordTranscriptResponse.Result responseResult = response.getResult();
+        if (response == null || responseResult == null) {
             return "";
         }
 
-        GetServiceRecordTranscriptResponse.TranscriptSection transcriptSection = response.getResult().getAudioText();
-        if (transcriptSection == null || transcriptSection.getDataList() == null) {
+        GetServiceRecordTranscriptResponse.TranscriptSection transcriptSection = responseResult.getAudioText();
+        List<GetServiceRecordTranscriptResponse.TranscriptSegment> dataList = transcriptSection.getDataList();
+        if (transcriptSection == null || dataList == null) {
             return "";
         }
 
         Map<String, String> roleByChannel = new HashMap<>();
-        GetServiceRecordTranscriptResponse.SpeakerSection speakerSection = response.getResult().getSpeaker();
+        GetServiceRecordTranscriptResponse.SpeakerSection speakerSection = responseResult.getSpeaker();
         if (speakerSection != null && speakerSection.getDataList() != null) {
             for (GetServiceRecordTranscriptResponse.SpeakerRole speakerRole : speakerSection.getDataList()) {
                 if (speakerRole == null || StringUtils.isBlank(speakerRole.getChannel())) {
@@ -91,10 +93,10 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
             }
         }
 
-        List<GetServiceRecordTranscriptResponse.TranscriptSegment> segments = transcriptSection.getDataList().stream()
-                .filter(Objects::nonNull)
-                .sorted(Comparator.comparingLong(segment -> parseLong(segment.getStartTime())))
-                .toList();
+        List<GetServiceRecordTranscriptResponse.TranscriptSegment> segments = dataList.stream()
+                                                                                      .filter(Objects::nonNull)
+                                                                                      .sorted(Comparator.comparingLong(segment -> parseLong(segment.getStartTime())))
+                                                                                      .toList();
 
         StringBuilder builder = new StringBuilder();
         for (GetServiceRecordTranscriptResponse.TranscriptSegment segment : segments) {
