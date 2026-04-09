@@ -1,0 +1,35 @@
+mybatis-plus:
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+config:
+  port: 7002
+  # 是否开启 swagger
+  swaggerEnabled: true
+  # 本地文件路径
+  localPath: /Users/vjf/Projects/idea/logs/base-end
+  # redis 配置
+  redis:
+    host: 127.0.0.1
+    # 密码
+    password: difyai123456
+    # 数据库索引
+    database: 2
+    # 端口，默认为6379
+    port: 6379
+  datasource:
+    # PostgreSQL数据源配置
+    postgres:
+      url: localhost
+      port: 5432
+      database: dingding-bot
+      username: postgres
+      password: difyai123456
+      
+  
+user:
+  java:
+    custom-data: 127.0.0.1:7000/custom-data
+  ai: 
+    custom-pipeline: 127.0.0.1:7001
