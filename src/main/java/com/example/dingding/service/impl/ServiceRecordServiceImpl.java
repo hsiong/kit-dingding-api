@@ -72,45 +72,41 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
     @Override
     public String getServiceRecordTranscriptText(String recordId) {
         GetServiceRecordTranscriptResponse response = dviFeignClient.getServiceRecordTranscript(recordId);
+        if (response == null) {
+            return "";
+        }
         GetServiceRecordTranscriptResponse.Result responseResult = response.getResult();
-        if (response == null || responseResult == null) {
-            return "";
-        }
 
+        // 转写文本结果
         GetServiceRecordTranscriptResponse.TranscriptSection transcriptSection = responseResult.getAudioText();
+        // 转写文本分段列表
         List<GetServiceRecordTranscriptResponse.TranscriptSegment> dataList = transcriptSection.getDataList();
-        if (transcriptSection == null || dataList == null) {
-            return "";
-        }
-
-        Map<String, String> roleByChannel = new HashMap<>();
+        Map<String, String> roleByChannelMap = new HashMap<>();
+        // 说话人角色识别结果
         GetServiceRecordTranscriptResponse.SpeakerSection speakerSection = responseResult.getSpeaker();
-        if (speakerSection != null && speakerSection.getDataList() != null) {
-            for (GetServiceRecordTranscriptResponse.SpeakerRole speakerRole : speakerSection.getDataList()) {
-                if (speakerRole == null || StringUtils.isBlank(speakerRole.getChannel())) {
-                    continue;
-                }
-                // 将接口中的角色标识映射成更适合导出文本阅读的中文角色名。
-                roleByChannel.put(speakerRole.getChannel(), formatRoleName(speakerRole.getRole(), speakerRole.getChannel()));
+        for (GetServiceRecordTranscriptResponse.SpeakerRole speakerRole : speakerSection.getDataList()) {
+            if (speakerRole == null || StringUtils.isBlank(speakerRole.getChannel())) {
+                continue;
             }
+            // 将接口中的角色标识映射成更适合导出文本阅读的中文角色名。
+            roleByChannelMap.put(speakerRole.getChannel(), formatRoleName(speakerRole.getRole()));
         }
 
         // 按分段开始时间排序后拼接，避免返回顺序不稳定影响导出文本可读性。
-        List<GetServiceRecordTranscriptResponse.TranscriptSegment> segments = dataList.stream()
-                                                                                      .filter(Objects::nonNull)
-                                                                                      .sorted(Comparator.comparingLong(segment -> parseLong(segment.getStartTime())))
-                                                                                      .toList();
+        List<GetServiceRecordTranscriptResponse.TranscriptSegment> segments = 
+            dataList.stream()
+                    .filter(Objects::nonNull)
+                    .sorted(Comparator.comparingLong(segment -> parseLong(segment.getStartTime())))
+                    .toList();
 
         StringBuilder builder = new StringBuilder();
         for (GetServiceRecordTranscriptResponse.TranscriptSegment segment : segments) {
             if (StringUtils.isBlank(segment.getText())) {
                 continue;
             }
-
-            String role = roleByChannel.getOrDefault(
-                    segment.getChannel(),
-                    formatRoleName(null, segment.getChannel())
-            );
+            
+            String role =
+                roleByChannelMap.getOrDefault(segment.getChannel(), "未知角色");
 
             if (!builder.isEmpty()) {
                 builder.append(System.lineSeparator());
@@ -160,14 +156,15 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
     }
 
     private String resolveUserName(ListServiceRecordResponse.ServiceRecord record) {
+        String staffUnknownName = "未知员工";
         if (record.getUser() == null) {
-            return "unknown";
+            return staffUnknownName;
         }
         if (StringUtils.isNotBlank(record.getUser().getName())) {
             return record.getUser().getName();
         }
         if (StringUtils.isBlank(record.getUser().getUserId())) {
-            return "unknown";
+            return staffUnknownName;
         }
 
         try {
@@ -178,19 +175,16 @@ public class ServiceRecordServiceImpl implements ServiceRecordService {
         } catch (Exception ex) {
             log.warn("补充查询用户详情失败，userId={}", record.getUser().getUserId(), ex);
         }
-        return "unknown";
+        return staffUnknownName;
     }
 
-    private String formatRoleName(String role, String channel) {
-        if (StringUtils.isBlank(role)) {
-            return StringUtils.isBlank(channel) ? "未知角色" : "通道" + channel;
-        }
+    private String formatRoleName(String role) {
 
         String normalizedRole = role.trim().toLowerCase();
         return switch (normalizedRole) {
-            case "saler", "sales", "seller" -> "销售";
-            case "customer", "client", "buyer" -> "客户";
-            default -> role;
+            case "saler", "sales", "seller" -> "员工";
+            case "customer", "client", "buyer" -> "顾客";
+            default -> "未知角色";
         };
     }
 
