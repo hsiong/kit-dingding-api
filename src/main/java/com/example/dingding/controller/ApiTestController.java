@@ -10,6 +10,10 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
 /**
  * 钉钉用户相关接口。
  */
@@ -75,6 +79,18 @@ public class ApiTestController {
         @Valid @RequestBody SendSceneGroupAssistantMessageDTO request
     ) {
         return messageService.sendSceneGroupAssistantMessage(request);
+    }
+    
+    /**
+     * 获取近 7 天服务记录转写文本并写入本地文件。
+     *
+     * @return 导出结果
+     */
+    @GetMapping("/service-record/listServiceRecords")
+    public List<ListServiceRecordResponse.ServiceRecord> listServiceRecords(@RequestParam(name = "amount") Integer amount) {
+        long endTime = Instant.now().toEpochMilli();
+        long startTime = Instant.now().minus(amount, ChronoUnit.DAYS).toEpochMilli();
+        return serviceRecordService.listServiceRecords(startTime, endTime);
     }
 
     /**
