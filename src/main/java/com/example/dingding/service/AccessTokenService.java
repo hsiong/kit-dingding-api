@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 访问令牌服务。
+ * 负责使用应用凭证换取钉钉访问令牌。
  */
 @Service
 public class AccessTokenService {
@@ -21,14 +22,16 @@ public class AccessTokenService {
 
     /**
      * 使用应用凭证换取 access token。
+     * 
+     * @return 包含 access token 及相关信息的返回结果
      */
     public GetAccessTokenResult getAccessToken() {
-        // 组装请求参数（appKey/appSecret）。
+        // 组装请求参数（appKey/appSecret）
         GetAccessTokenRequest request = new GetAccessTokenRequest();
         request.setAppKey(dingdingConfig.getAppKey());
         request.setAppSecret(dingdingConfig.getAppSecret());
 
-        // 调用钉钉 OAuth2 接口获取 token。
+        // 调用钉钉 OAuth2 接口获取 token
         return accessTokenFeignClient.getAccessToken(request);
     }
 }
