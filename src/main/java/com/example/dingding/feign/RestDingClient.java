@@ -54,7 +54,8 @@ public interface RestDingClient {
 
     /**
      * 查询用户详情。
-     * https://open.dingtalk.com/document/development/query-user-details
+     * 请求地址：POST /topapi/v2/user/get
+     * 文档：https://open.dingtalk.com/document/development/query-user-details
      */
     @PostMapping("/topapi/v2/user/get")
     GetUserDetailResult getUserDetail(@RequestBody GetUserDetailRequest request);
